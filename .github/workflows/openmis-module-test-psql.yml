@@ -61,6 +61,15 @@ jobs:
           python modules-requirements.py openimis.json > modules-requirements.txt
           cat modules-requirements.txt
           pip install -r modules-requirements.txt
+          pip install tox 
+      - name: Setup tox
+        working-directory: ./current-module
+        run: |
+          pip install tox
+          mv .github/tox.ini .
+      - name: Run Tox
+        working-directory: ./current-module
+        run: tox
       - name: Run Flake8
         working-directory: ./openimis/openIMIS
         run: |
