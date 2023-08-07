@@ -43,10 +43,10 @@ jobs:
         run: |
           rm ./openimis -rf
           git clone --depth 1 --branch coreMIS https://github.com/openimis/openimis-be_py.git ./openimis
-      # - name: Copy Current branch
-      #   uses: actions/checkout@v2
-      #   with:
-      #     path: './current-module'
+      - name: Copy Current branch
+        uses: actions/checkout@v2
+        with:
+          path: './current-module'
       # - name: Update the configuration
       #   working-directory: ./openimis
       #   run: |
