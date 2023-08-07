@@ -66,9 +66,9 @@ jobs:
         working-directory: ./current-module
         run: |
           pip install tox
-          mv .github/tox.ini .
+          mv .github/tox.ini ../openimis/openIMIS
       - name: Run Tox
-        working-directory: ./current-module
+        working-directory: ./openimis/openIMIS
         run: tox
       - name: Run Flake8
         working-directory: ./openimis/openIMIS
