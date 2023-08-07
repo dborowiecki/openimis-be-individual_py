@@ -55,7 +55,6 @@ jobs:
           jq --arg name "$MODULE_NAME" 'if [.modules[].name  ==  ($name)]| max then (.modules[]  | select(.name == ($name)) | .pip)|="../current-module" else .modules |= .+ [{name:($name), pip:"../current-module"}] end' openimis.json
           echo $(jq --arg name "$MODULE_NAME" 'if [.modules[].name  ==  ($name)]| max then (.modules[]  | select(.name == ($name)) | .pip)|="../current-module" else .modules |= .+ [{name:($name), pip:"../current-module"}] end' openimis.json)  > openimis.json
           python modules-requirements.py openimis.json > modules-requirements.txt
-          pip install -r modules-requirements.txt
       # - name: Install openIMIS Python dependencies
       #   working-directory: ./openimis
       #   run: |
@@ -70,7 +69,9 @@ jobs:
           mv .github/tox.ini ../openimis/
       - name: Run Tox
         working-directory: ./openimis/
-        run: tox
+        run: |
+          ls
+          tox
       - name: Run Flake8
         working-directory: ./openimis/openIMIS
         run: |
