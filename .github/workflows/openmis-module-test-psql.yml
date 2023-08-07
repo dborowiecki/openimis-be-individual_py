@@ -54,23 +54,10 @@ jobs:
           echo "the local module called $MODULE_NAME will be injected in openIMIS .json"
           jq --arg name "$MODULE_NAME" 'if [.modules[].name  ==  ($name)]| max then (.modules[]  | select(.name == ($name)) | .pip)|="../current-module" else .modules |= .+ [{name:($name), pip:"../current-module"}] end' openimis.json
           echo $(jq --arg name "$MODULE_NAME" 'if [.modules[].name  ==  ($name)]| max then (.modules[]  | select(.name == ($name)) | .pip)|="../current-module" else .modules |= .+ [{name:($name), pip:"../current-module"}] end' openimis.json)  > openimis.json
-          python modules-requirements.py openimis.json > modules-requirements.txt
-      # - name: Install openIMIS Python dependencies
-      #   working-directory: ./openimis
-      #   run: |
-      #     pip install -r requirements.txt
-      #     python modules-requirements.py openimis.json > modules-requirements.txt
-      #     pip install -r modules-requirements.txt
-      #     pip install tox 
-      - name: Setup tox
-        working-directory: ./current-module
-        run: |
-          pip install tox
-          mv .github/tox.ini ../openimis/
       - name: Run Tox
         working-directory: ./openimis/
         run: |
-          ls
+          pip install tox 
           tox
       - name: Run Flake8
         working-directory: ./openimis/openIMIS
